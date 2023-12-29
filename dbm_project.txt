@@ -1,0 +1,84 @@
+from tkinter import*  #for GUI
+from tkinter import ttk
+from tkinter import messagebox
+from PIL import ImageTk  #for image r
+import os #for file
+
+
+
+class win1:
+    def __init__(self,root):
+        self.root = root
+        self.root.title("Login".center(420)) #for window title
+        self.root.configure(background = "black") #background color for window
+        self.root.geometry("1350x700+0+0")
+
+        bg_color = "#074463"
+        #--------------Storing image to varables---------------------------
+        self.bg_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340280.jpg")
+        bg_lbl = Label(self.root, image = self.bg_icon).pack(fill=Y)
+        self.user_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340266.jpg")
+        self.buser_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340266.jpg")
+        self.pass_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340266.jpg")
+        self.logo_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340266.jpg")
+        self.slgroup_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340266.jpg")
+        #---------------------variables-------------------------
+
+        self.uname = StringVar()
+        self.pasw = StringVar()
+
+        title = Label(self.root,text="Blood Bank", font =("times new roman",40,"bold"),bd=5,relief= GROOVE, fg="white",bg=bg_color,pady=2).place(x=0,y=0,relwidth=1)
+
+        #----------Frame------------------------#
+        f1 = LabelFrame(self.root,bd=10,relief=GROOVE, text="Welcome to Blood Bank App", font=("times new roman",30,"bold"),fg="gold",bg=bg_color)
+        f1.place(x=0,y=0,relwidth=1)
+        lbl = Label(f1,text="Dav's Blood Bank ", bg=bg_color,fg="white", font=("times new roman",30,"bold")).grid(row=0, column=0,padx=20,pady=20)
+
+        f2 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Login As User",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f2.place(x=120, y=300,width=500,height=300)
+        lbl2 = Label(f2, image=self.logo_icon,bd=5,width=70,height=70)
+        lbl2.place(x=350,y=25)
+
+        f3 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Login As Hospital",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f3.place(x=700, y=300, width=500, height=300)
+        lbl3 = Label(f3, image=self.logo_icon, bd=5, width=70, height=70)
+        lbl3.place(x=350, y=25)
+
+        #---------------------------Username----------------------------#
+
+        txtu = Entry(f2,bd=3,textvariable=self.uname, relief=GROOVE,font=("",15)).grid(row=0,column=1,padx=20,pady=20)
+        txtp = Entry(f2, bd=3, textvariable=self.pasw, relief=GROOVE, font=("", 15)).grid(row=1, column=1)
+
+        txtu = Entry(f3, bd=3, textvariable=self.uname, relief=GROOVE, font=("", 15)).grid(row=0, column=1, padx=20,                                                                         pady=20)
+        txtp = Entry(f3, bd=3, textvariable=self.pasw, relief=GROOVE, font=("", 15)).grid(row=1, column=1)
+
+
+        #------------------Button----------------------------------#
+
+        btn_login = Button(f2,text="Login", width=8, command=self.login, font=("times new roman",14,"bold"),
+                           bg="yellow",fg="red").grid(row=3,column=1,padx=20, pady=30)
+        btn_signup = Button(f2,text="Sign Up", width=8, font=("times new roman",14,"bold"),
+                            bg="yellow",fg="red").grid(row=3,column=4,padx=20)
+
+
+        btn_login = Button(f3, text="Login", width=8, command=self.login, font=("times new roman", 14, "bold"),
+                           bg="yellow", fg="red").grid(row=3, column=1, padx=20, pady=30)
+        btn_signup = Button(f3, text="Sign Up", width=8, font=("times new roman", 14, "bold"),
+                            bg="yellow", fg="red").grid(row=3, column=4, padx=20)
+
+    def login(self):
+        pass
+    def login2(self):
+        pass
+
+    def signup(self):
+        pass
+    def signup2(self):
+        pass
+
+
+root = Tk()
+obj = win1(root)
+root.mainloop()

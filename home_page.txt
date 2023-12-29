@@ -1,0 +1,61 @@
+from tkinter import*  #for GUI
+#from tkinter import ttk
+from tkinter import messagebox
+import os
+from PIL import ImageTk, Image  #for image r
+import os #for file
+import donate
+import request_page
+
+class win1:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Login".center(420)) #for window title
+        self.root.configure(background = "black") #background color for window
+        self.root.geometry("1350x700+0+0")
+        #**************************Storing variable********************
+        self.bg_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340280.jpg")
+
+
+        #*************functions**************************
+
+
+        bg_color = "#888373"
+        #******************************************main frame********************************
+        f1 = LabelFrame(self.root, bd=5, relief=GROOVE, text="Welcome to Blood Bank App",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f1.place(x=0, y=0, relwidth=5)
+        logolb1=Label(f1, image=self.bg_icon,bd=5).grid(row=0,column=0,pady=30)
+        label = Label( text='"The need for blood is universal, \nbut access to \nblood for all those who need it is not, it added".', font='Arial 30 italic ',fg="red")
+        label.place(relx=0.6, rely=0.5, anchor=CENTER)
+
+        #****************************************frame two***************************************
+        f2 = LabelFrame(self.root, bd=10, relief=GROOVE,
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f2.place(x=0, y=100, width=400, height=600)
+
+        btn_donate = Button(f2,text="Donate", width=8,command=lambda: self.call_donate(), font=("times new roman",25,"bold"),bg="yellow",fg="red").grid(
+            row=2,column=2,padx=80,pady=40)
+        btn_request = Button(f2, text="Request", width=8, command=self.request, font=("times new roman", 25, "bold"),bg="yellow", fg="red").grid(
+            row=3, column=2, padx=80, pady=40)
+        btn_records = Button(f2, text="Records", width=8, command=self.records, font=("times new roman", 25, "bold"), bg="yellow", fg="red").grid(
+            row=4, column=2, padx=80, pady=40)
+        btn_exit = Button(f2, text="Exit", width=8, command=self.exit, font=("times new roman", 25, "bold"), bg="yellow", fg="red").grid(
+            row=5, column=2, padx=80, pady=40)
+
+    def call_donate(self):
+        donate.win1(self.root)
+        #print(type(self))
+        #self.place_forget()
+
+        #donate()
+    def request(self):
+        request_page.win1(self.root)
+    def records(self):
+        pass
+    def exit(self):
+        quit()
+
+root = Tk()
+obj = win1(root)
+root.mainloop()

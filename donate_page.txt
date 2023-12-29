@@ -1,0 +1,172 @@
+from tkinter import*  #for GUI
+from tkinter import ttk
+from tkinter import messagebox
+from tkcalendar import DateEntry #pip install tkcalender
+from datetime import datetime
+from PIL import ImageTk, Image  #for image r #pip install pillow
+import home_page
+import sqlite3
+import os
+from tkinter import filedialog
+
+import os #for file
+
+
+class win1:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Blood Bank System".center(420)) #for window title
+        self.root.configure(background = "black") #background color for window
+        self.root.geometry("1350x700+0+0")
+        #**************************Storing variable********************
+        self.bg_icon = ImageTk.PhotoImage(file="PICS/bg1.jpg")
+
+
+
+        #*************functions**************************
+        self.firstName = StringVar()
+        self.lastName = StringVar()
+        self.address = StringVar()
+        self.email = StringVar()
+        self.contact = StringVar()
+        self.gender = StringVar()
+        self.stateOrigin = StringVar()
+        self.dob = StringVar()
+        self.bloodGroup = StringVar()
+        self.rbc_wbc_count = StringVar()
+
+        now = datetime.now()
+        self.today = now.strftime("%d/%m/%Y")
+        self.label, self.calender = "", ""
+
+
+
+        bg_color = "#888373"
+        font_=("times new roman")
+
+        #******************************************main frame********************************
+        f1 = LabelFrame(self.root, bd=5, relief=FLAT, text="Donate Here",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f1.place(x=0, y=0, relwidth=5)
+        logolb1=Label(f1, image=self.bg_icon,bd=5).grid(row=0,column=0,pady=30)
+
+        #****************************************frame two***************************************
+        f2 = LabelFrame(f1, bd=0, relief=GROOVE,
+                        font=("times new roman", 30, "bold"), fg="gold", bg="white")
+        f2.place(x=250, y=40, width=900, height=600)
+
+        lbl1 = Label(f2, text="First Name", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl1.grid(row=1, column=0, padx=20, pady=20, sticky="w")
+        txt1 = Entry(f2, textvariable=self.firstName, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt1.grid(row=1, column=1, padx=20, pady=20, sticky="w")
+        # ===================================Entries=========================================#
+
+        lbl2 = Label(f2, text="Last Name", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl2.grid(row=1, column=2)
+        lbl2.place(x=360,y=20)
+        txt2 = Entry(f2, textvariable=self.lastName, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt2.grid(row=1, column=5, padx=20, pady=20)
+        txt2.place(x=450,y=20)
+
+        # ===================================Entries=========================================#
+
+        lbl3 = Label(f2, text="Address", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl3.grid(row=3, column=0, padx=20, pady=20, sticky="w")
+        txt3 = Entry(f2, textvariable=self.address, bd=5, relief=GROOVE, font=(font_,13, "bold"))
+        txt3.grid(row=3, column=1, padx=20, pady=20, sticky="w")
+        txt3.place(x=165, y=90, width=400, height=100 )
+        # ===================================Entries=========================================#
+
+        self.label = (Label(f2, text="D.O.B", bg="white", fg="black", font=(font_, 10, "bold")))
+        self.label.grid(row=4, column=0, padx=20, pady=65, sticky="w")
+
+        self.calender = DateEntry(f2, textvariable=self.dob, font=(font_, 13, "italic"), local="en_GB",
+                                  width=20, state="readonly")
+        self.calender.grid(row=4, column=1, padx=20, pady=10, sticky="w")
+        # ===================================Entries=========================================#
+        gender_lbl = Label(f2, text="Gender", bg="white", fg="black", font=(font_, 13, "bold"))
+        gender_lbl.grid(row=5, column=0, padx=20, pady=0, sticky="w")
+        gender = ttk.Combobox(f2, textvariable=self.gender, font=(font_, 13, "bold"), width=20,
+                              state="readonly")
+        gender["values"] = ("Male", "Female", "Others")
+        gender.grid(row=5, column=1, padx=20, pady=0, sticky="w")
+
+        # ===================================Entries=========================================#
+
+        lbl6 = Label(f2, text="Contact", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl6.grid(row=6, column=0, padx=20, pady=20, sticky="w")
+        txt6 = Entry(f2, textvariable=self.contact, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt6.grid(row=6, column=1, padx=20, pady=20, sticky="w")
+
+        lbl7 = Label(f2, text="State of Origin", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl7.grid(row=6, column=1, columnspan=5)
+        lbl7.place(x=360,y=335)
+        stateOrigin = ttk.Combobox(f2, textvariable=self.stateOrigin, font=(font_, 13, "bold"), width=20,
+                              state="readonly")
+        stateOrigin["values"] = ("Abia State (Umuahia)", "Adamawa State (Yola)", "Akwa Ibom State (Uyo)","Anambra State (Awka)","Bayelsa State (Yenagoa)",
+                                 "Benue State (Makurdi)","Borno State (Maiduguri)","Cross River State (Calabar)","Delta State (Asaba)","Ebonyi State (Abakaliki)",
+                                 "Edo State (Benin City)","Ekiti State (Ado Ekiti)" ,"Enugu State(Enugu)", "Gombe State(Gombe)", "Imo State(Owerri)",
+                                 "Jigawa State (Dutse)"," Kaduna State (Kaduna)", "Kano State (Kano)", "Katsina State (Katsina)", "Kebbi State (Birnin Kebbi)",
+                                 "Kogi State (Lokoja)","Kwara State (Ilorin)" ,"Lagos State (Ikeja)", "Nasarawa State (Lafia)", "Niger State (Minna)" ,"Ogun State (Abeokuta)","Ondo State (Akure)",
+                                 "Osun State (Oshogbo)"," Oyo State (Ibadan)"," Plateau State (Jos)" ,"Rivers State (Port Harcourt)" ,"Sokoto State (Sokoto)","Taraba State (Jalingo)",
+                                 "Yobe State (Damaturu)", "Zamfara State (Gusau)","F.C.T (Abuja)")
+
+
+        stateOrigin.grid(row=6, column=1, padx=20, pady=0, sticky="w")
+        stateOrigin.place(x=500,y=335)
+
+
+
+
+
+        lbl8 = Label(f2, text="Email", bg="white", fg="black", font=(font_, 13, "bold",))
+        lbl8.grid(row=7, column=0, padx=20, pady=20, sticky="w")
+        txt8 = Entry(f2, textvariable=self.email, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt8.grid(row=7, column=1, padx=20, pady=20, sticky="w")
+
+        lbl9 = Label(f2, text="Blood Group", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl9.grid(row=8, column=0, padx=20, pady=0, sticky="w")
+        bloodGroup = ttk.Combobox(f2, textvariable=self.bloodGroup, font=(font_, 13, "bold"), width=20,
+                              state="readonly")
+        bloodGroup["values"] = ("A RhD positive (A+)", "A RhD negative (A-)", "B RhD positive (B+)","B RhD negative (B-)","O RhD positive (O+)","O RhD negative (O-)",
+                                "AB RhD positive (AB+)","AB RhD negative (AB-)")
+        bloodGroup.grid(row=8, column=1, padx=20, pady=0, sticky="w")
+
+        lbl10 = Label(f2, text="RBC/WBC count", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl10.grid(row=9, column=0, padx=20, pady=20, sticky="w")
+        lbl10.place(x=360,y=400)
+        txt10 = Entry(f2, textvariable=self.rbc_wbc_count, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt10.grid(row=9, column=1, padx=20, pady=20, sticky="w")
+        txt10.place(x=500,y=400)
+
+
+
+        btn_save = Button(f2, text="Save",bg="green", width=8, command=self.save, font="bold").grid(row=10, column=0, pady=20)
+        btn_back = Button(f2, text="Back",bg="orange", width=8, command=self.back, font="bold").grid(row=10, column=1, padx=15, pady=20)
+        btn_clear = Button(f2, text="Clear",bg="pink", width=8, command=self.clear, font="bold").grid(row=10, column=2,padx=15, pady=20)
+        btn_exit = Button(f2, text="Exit",bg="red", width=8, command=self.exit, font="bold").grid(row=10, column=3,padx=15, pady=20)
+
+
+    def save(self):
+        pass
+    def back(self):
+        home_page.win1(self.root)
+    def clear(self):
+        self.firstName.set("")
+        self.lastName.set("")
+        self.email.set("")
+        self.contact.set("")
+        self.gender.set("Male")
+        self.email.set("")
+        self.stateOrigin.set("F.C.T (Abuja)")
+        self.bloodGroup.set("")
+        self.address.set("")
+        self.dob.set(self.today)
+        self.rbc_wbc_count.set("")
+    def exit(self):
+        quit()
+
+#
+# root = Tk()
+# obj = win1(root)
+# root.mainloop()

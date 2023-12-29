@@ -1,0 +1,46 @@
+from tkinter import*  #for GUI
+#from tkinter import ttk
+from tkinter import messagebox
+import os
+from PIL import ImageTk, Image  #for image r
+##from tabulate import tabulate
+
+import os #for file
+
+
+class win1:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Login".center(420)) #for window title
+        self.root.configure(background = "black") #background color for window
+        self.root.geometry("1350x700+0+0")
+        #**************************Storing variable********************
+        self.bg_icon = ImageTk.PhotoImage(file="PICS/pexels-puwadon-sangngern-5340280.jpg")
+
+
+        #*************functions**************************
+
+
+        bg_color = "#888373"
+       #******************************************main frame********************************
+        f1 = LabelFrame(self.root, bd=5, relief=GROOVE, text="Records",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f1.place(x=0, y=0, relwidth=5)
+        logolb1=Label(f1, image=self.bg_icon,bd=5).grid(row=0,column=0,pady=30)
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+root = Tk()
+obj = win1(root)
+root.mainloop()

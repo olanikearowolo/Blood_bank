@@ -1,0 +1,137 @@
+from tkinter import*  #for GUI
+from tkinter import ttk
+from tkinter import messagebox
+from tkcalendar import DateEntry
+from datetime import datetime
+from PIL import ImageTk  #for image r
+from tkinter import filedialog
+import home_page
+
+import os #for file
+
+
+class win1:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Blood Bank System".center(420)) #for window title
+        self.root.configure(background = "black") #background color for window
+        self.root.geometry("1350x700+0+0")
+        #**************************Storing variable********************
+        self.bg_icon = ImageTk.PhotoImage(file="PICS/image4.jpg")
+
+
+        #*************functions**************************
+        self.full_name = StringVar()
+        self.ward = StringVar()
+        self.contact = StringVar()
+        self.gender = StringVar()
+        self.dob = StringVar()
+        self.bloodGroup = StringVar()
+        self.diagnos = StringVar()
+        self.tranfusion_history = StringVar()
+        self.rbc_wbc_count = StringVar()
+
+        now = datetime.now()
+        self.today = now.strftime("%d/%m/%Y")
+        self.label, self.calender = "", ""
+
+
+
+        bg_color = "#888373"
+        font_=("times new roman")
+
+        #******************************************main frame********************************
+        f1 = LabelFrame(self.root, bd=5, relief=GROOVE, text="Request Here",
+                        font=("times new roman", 30, "bold"), fg="gold", bg=bg_color)
+        f1.place(x=0, y=0, relwidth=5)
+        logolb1=Label(f1, image=self.bg_icon,bd=5).grid(row=0,column=0,pady=30)
+
+        #****************************************frame two***************************************
+        f2 = LabelFrame(f1, bd=0, relief=GROOVE,
+                        font=("times new roman", 30, "bold"), fg="gold", bg="white")
+        f2.place(x=250, y=40, width=900, height=550)
+
+        lbl1 = Label(f2, text="Patient Full name", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl1.grid(row=1, column=0, padx=20, pady=20, sticky="w")
+        txt1 = Entry(f2, textvariable=self.full_name, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt1.grid(row=1, column=1, padx=20, pady=20, sticky="w")
+        # ===================================Entries=========================================#
+
+        # ===================================Entries=========================================#
+
+        lbl3 = Label(f2, text="Ward/Location", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl3.grid(row=3, column=0, padx=20, pady=20, sticky="w")
+        txt3 = Entry(f2, textvariable=self.ward, bd=5, relief=GROOVE, font=(font_,13, "bold"))
+        txt3.grid(row=3, column=1, padx=20, pady=20, sticky="w")
+        txt3.place(x=215, y=90, width=250, height=30 )
+        # ===================================Entries=========================================#
+
+        self.label = (Label(f2, text="D.O.B", bg="white", fg="black", font=(font_, 10, "bold")))
+        self.label.grid(row=4, column=0, padx=20, pady=20, sticky="w")
+
+        self.calender = DateEntry(f2, textvariable=self.dob, font=(font_, 13, "italic"), local="en_GB",
+                                  width=20, state="readonly")
+        self.calender.grid(row=4, column=1, padx=20, pady=10, sticky="w")
+        # ===================================Entries=========================================#
+        gender_lbl = Label(f2, text="Gender", bg="white", fg="black", font=(font_, 13, "bold"))
+        gender_lbl.grid(row=5, column=0, padx=20, pady=0, sticky="w")
+        gender = ttk.Combobox(f2, textvariable=self.gender, font=(font_, 13, "bold"), width=20,
+                              state="readonly")
+        gender["values"] = ("Male", "Female", "Others")
+        gender.grid(row=5, column=1, padx=20, pady=0, sticky="w")
+
+        # ===================================Entries=========================================#
+
+        lbl6 = Label(f2, text="Diagnosis", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl6.grid(row=6, column=0, padx=20, pady=20, sticky="w")
+        txt6 = Entry(f2, textvariable=self.diagnos, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt6.grid(row=6, column=1, padx=20, pady=20, sticky="w")
+
+
+
+
+
+        lbl8 = Label(f2, text="Transfusion History", bg="white", fg="black", font=(font_, 13, "bold",))
+        lbl8.grid(row=7, column=0, padx=20, pady=20, sticky="w")
+        txt8 = Entry(f2, textvariable=self.tranfusion_history, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt8.grid(row=7, column=1, padx=20, pady=20, sticky="w")
+
+        lbl9 = Label(f2, text="Blood Group", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl9.grid(row=8, column=0, padx=20, pady=0, sticky="w")
+        bloodGroup = ttk.Combobox(f2, textvariable=self.bloodGroup, font=(font_, 13, "bold"), width=20,
+                              state="readonly")
+        bloodGroup["values"] = ("A RhD positive (A+)", "A RhD negative (A-)", "B RhD positive (B+)","B RhD negative (B-)","O RhD positive (O+)","O RhD negative (O-)",
+                                "AB RhD positive (AB+)","AB RhD negative (AB-)")
+        bloodGroup.grid(row=8, column=1, padx=20, pady=0, sticky="w")
+
+        lbl10 = Label(f2, text="RBC/WBC count", bg="white", fg="black", font=(font_, 13, "bold"))
+        lbl10.grid(row=9, column=0, padx=20, pady=20, sticky="w")
+        txt10 = Entry(f2, textvariable=self.rbc_wbc_count, bd=5, relief=GROOVE, font=(font_, 13, "bold"))
+        txt10.grid(row=9, column=1, padx=20, pady=20, sticky="w")
+
+        btn_save = Button(f2, text="Save",bg="green", width=8, command=self.save, font="bold").grid(row=10, column=0, pady=15)
+        btn_back = Button(f2, text="Back",bg="orange", width=8, command=self.back, font="bold").grid(row=10, column=1, padx=15, pady=15)
+        btn_clear = Button(f2, text="Clear",bg="pink", width=8, command=self.clear, font="bold").grid(row=10, column=2,padx=15, pady=15)
+        btn_exit = Button(f2, text="Exit",bg="red", width=8, command=self.exit, font="bold").grid(row=10, column=3,padx=15, pady=15)
+
+
+    def save(self):
+        pass
+    def back(self):
+        home_page.win1(self.root)
+    def clear(self):
+        self.full_name.set("")
+        self.ward.set("")
+        self.diagnos.set("")
+        self.gender.set("Male")
+        self.tranfusion_history.set("")
+        self.bloodGroup.set("")
+        self.dob.set(self.today)
+        self.rbc_wbc_count.set("")
+    def exit(self):
+        quit()
+
+
+#root = Tk()
+#obj = win1(root)
+#root.mainloop()
